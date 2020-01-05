@@ -19,7 +19,12 @@
     </parent>
 
     <dependencies>
-<!--        Adding MySQL-->
+        <!-- security -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!--Adding MySQL-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
@@ -38,12 +43,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-<!--        Adding Mustache template    -->
+        <!--        Adding Mustache template    -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mustache</artifactId>
         </dependency>
-<!--        Adding Spring boot and components-->
+        <!--        Adding Spring boot and components-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -66,7 +71,7 @@
             </exclusions>
         </dependency>
 
-<!--        adding lombok for auto getters and setters annotation-->
+        <!--        adding lombok for auto getters and setters annotation-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
