@@ -2,7 +2,6 @@
 <#import "parts/login.ftl" as l>
 
 <@common.page>
-    Login page
-    <@l.login "/login" />
-    <a href="/registration">Add new user</a>
+    <#--Login page-->
+    <@l.login "/login" false /> <#--false, т.к. это не форма регистрации-->
 </@common.page>

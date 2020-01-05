@@ -3,6 +3,6 @@
 
 <@common.page>
     Add new user
-    ${message!}
-    <@l.login "/registration" />
+    ${message!} <#--Отображает сообщение об ошиюке, если она есть-->
+    <@l.login "/registration" true /> <#--true, т.к. это форма регистрации-->
 </@common.page>
