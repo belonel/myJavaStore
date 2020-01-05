@@ -20,5 +20,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/img/**")
                 .addResourceLocations("file:///" + uploadPath + "/"); //все пути по запросу /img/** юудут перенаправляться по пути uploadPath
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations("classpath:/static/"); //classpath означат, что при обращнии по пути ресурсы будут искаться в дереве проекта от корня
     }
 }
