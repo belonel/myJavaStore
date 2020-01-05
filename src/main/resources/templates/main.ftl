@@ -16,10 +16,9 @@
 
     <div>Список сообщений</div>
     <form method="get" action="/main">
-        <input type="text" name="filter" value="${filter}">
+        <input type="text" name="filter" value="${filter!}">
         <button type="submit">Найти</button>
     </form>
-
     <#list messages as message>
         <div>
             <b>${message.id}</b>
@@ -28,6 +27,6 @@
             <strong>${message.authorName}</strong>
         </div>
     <#else>
-        No messages
+        No message
     </#list>
 </@common.page>
