@@ -1,6 +1,8 @@
 <#include "security.ftl">
 <#import "login.ftl" as l>
 
+<#macro navbar>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/">Lider</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -25,7 +27,15 @@
         <div class="icontext mr-4" style="max-width: 300px;">
             <span class="icon icon-sm rounded-circle bg-light">
                 <i class="fa fa-shopping-cart text-primary"></i>
-                <span class="notify">1</span>
+                <span class="notify" id="counter">
+                    <script>
+                        printCounter();
+                        function printCounter() {
+                            document.getElementById("counter").textContent = getCookie("incart");
+                        }
+                        setInterval(printCounter,250);
+                    </script>
+                </span>
 	        </span>
             <div class="text">
                 Shopping cart
@@ -37,3 +47,5 @@
         <@l.logout />
     </div>
 </nav>
+
+</#macro>

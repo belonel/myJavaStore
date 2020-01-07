@@ -93,7 +93,7 @@
             <div class="row">
                 <aside class="col-sm-3">
                     <#if product.imageFileName??>
-                        <a href="#" class="img-wrap"><img src="/img/${product.imageFileName}" width="250px"></a>
+                        <a href="#" class="img-wrap"><img src="/img/${product.imageFileName}"></a>
                     </#if>
                 </aside> <!-- col.// -->
                 <article class="col-sm-6">
@@ -101,6 +101,18 @@
                     <a href="#" class="title mt-2 h5">${product.name}</a>
 
                     <div class="rating-wrap mb-3">
+                        <#--    <ul class="rating-stars">-->
+                        <#--        <li style="width:80%" class="stars-active">-->
+                        <#--            <i class="fa fa-star"></i> <i class="fa fa-star"></i>-->
+                        <#--            <i class="fa fa-star"></i> <i class="fa fa-star"></i>-->
+                        <#--            <i class="fa fa-star"></i>-->
+                        <#--        </li>-->
+                        <#--        <li>-->
+                        <#--            <i class="fa fa-star"></i> <i class="fa fa-star"></i>-->
+                        <#--            <i class="fa fa-star"></i> <i class="fa fa-star"></i>-->
+                        <#--            <i class="fa fa-star"></i>-->
+                        <#--        </li>-->
+                        <#--    </ul>-->
                         <small class="label-rating text-muted">10 reviews</small>
                         <small class="label-rating text-success">
                             <i class="fa fa-clipboard-check"></i> 117 orders </small>
@@ -119,7 +131,13 @@
                     <p class="small text-success"> Бесплатная доставка </p>
                     <br>
                     <p>
-                        <a href="#" class="btn btn-primary"> Buy now </a>
+                        <a href="#" class="btn btn-primary"
+                           onclick="setCookie('incart',
+                                                (parseInt(getCookie('incart'), 10) + 1).toString(),
+                                                {}// , {secure: false, 'max-age': 216000}
+                                                ); return false">
+                            Buy now
+                        </a>
                         <a href="#" class="btn btn-light"> Details  </a>
                     </p>
                     <br>

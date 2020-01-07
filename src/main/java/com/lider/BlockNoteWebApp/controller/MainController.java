@@ -9,11 +9,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
@@ -38,6 +41,8 @@ public class MainController {
 
     @GetMapping("/main")
     public String main(
+            @CookieValue String incart,
+            HttpServletResponse response,
             @RequestParam(required = false, defaultValue = "") String filter,
             Model model
     ) {
@@ -47,6 +52,13 @@ public class MainController {
             products = ProductRepo.findByName(filter);
         else
             products = ProductRepo.findAll();
+
+        if (incart == null) {
+            // create a cookie
+            Cookie cookie = new Cookie("incart", "0");
+            //add cookie to response
+            response.addCookie(cookie);
+        }
 
         model.addAttribute("products", products);
         model.addAttribute("filter", filter);
