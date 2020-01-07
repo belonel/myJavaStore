@@ -38,7 +38,7 @@
                 </span>
 	        </span>
             <div class="text">
-                Shopping cart
+                <a href="/cart">Shopping cart</a>
             </div>
         </div> <!-- iconbox // -->
 

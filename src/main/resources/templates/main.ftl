@@ -1,5 +1,6 @@
 <#import "parts/common.ftl" as common>
 <#import "parts/product_card.ftl" as p>
+<#import "parts/addToCartButton.ftl" as addToCart>
 
 <@common.page>
 
@@ -131,14 +132,8 @@
                     <p class="small text-success"> Бесплатная доставка </p>
                     <br>
                     <p>
-                        <a href="#" class="btn btn-primary"
-                           onclick="setCookie('incart',
-                                                (parseInt(getCookie('incart'), 10) + 1).toString(),
-                                                {}// , {secure: false, 'max-age': 216000}
-                                                ); return false">
-                            Buy now
-                        </a>
-                        <a href="#" class="btn btn-light"> Details  </a>
+                        <@addToCart.add "${product.id}"> В корзину </@addToCart.add>
+                        <a href="#" class="btn btn-light"> Подробнее  </a>
                     </p>
                     <br>
                     <#--                <a href="#" class="small"><i class="fa fa-heart"></i> Add to wishlist</a>-->

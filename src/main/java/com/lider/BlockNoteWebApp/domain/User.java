@@ -70,6 +70,10 @@ public class User implements UserDetails {
         return active;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getPassword() {
         return password;
     }
