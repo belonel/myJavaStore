@@ -86,8 +86,22 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+
             </plugin>
         </plugins>
+
+        <resources>
+            <!-- configuring an additional resources folder: conf -->
+            <resource>
+                <directory>${project.basedir}/src/main/**</directory>
+                <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.woff</exclude>
+                    <exclude>**/*.woff2</exclude>
+                    <exclude>**/*.ttf</exclude>
+                </excludes>
+            </resource>
+        </resources>
     </build>
 
 </project>
