@@ -12,4 +12,5 @@ import java.util.List;
 
 public interface ProductRepo extends CrudRepository<Product, Integer> {
     List<Product> findByName(String name);
+    Product findById(Long id);
 }

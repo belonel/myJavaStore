@@ -2,4 +2,6 @@
 
 <@common.page>
     <h5>Your order:</h5>
+<#--    <#list items as item>-->
+<#--    </#list>-->
 </@common.page>

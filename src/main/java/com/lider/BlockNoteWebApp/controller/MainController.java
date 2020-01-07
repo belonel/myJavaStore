@@ -53,9 +53,10 @@ public class MainController {
         else
             products = ProductRepo.findAll();
 
-        if (incart == null) {
+        if (incart == "") {
             // create a cookie
             Cookie cookie = new Cookie("incart", "0");
+            cookie.setPath("/");
             //add cookie to response
             response.addCookie(cookie);
         }

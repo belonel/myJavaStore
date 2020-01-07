@@ -94,12 +94,12 @@
             <div class="row">
                 <aside class="col-sm-3">
                     <#if product.imageFileName??>
-                        <a href="#" class="img-wrap"><img src="/img/${product.imageFileName}"></a>
+                        <a href="/main/${product.id}" class="img-wrap"><img src="/img/${product.imageFileName}"></a>
                     </#if>
                 </aside> <!-- col.// -->
                 <article class="col-sm-6">
                     <#--<a href="#" class="title mt-2 h5">${message.text}</a>-->
-                    <a href="#" class="title mt-2 h5">${product.name}</a>
+                    <a href="/main/${product.id}" class="title mt-2 h5">${product.name}</a>
 
                     <div class="rating-wrap mb-3">
                         <#--    <ul class="rating-stars">-->
@@ -132,8 +132,10 @@
                     <p class="small text-success"> Бесплатная доставка </p>
                     <br>
                     <p>
-                        <@addToCart.add "${product.id}"> В корзину </@addToCart.add>
-                        <a href="#" class="btn btn-light"> Подробнее  </a>
+                        <@addToCart.add "${product.id}" "#" "btn btn-outline-primary"> <#-- id href class-->
+                            В корзину
+                        </@addToCart.add>
+                        <a href="/main/${product.id}" class="btn btn-light"> Подробнее  </a>
                     </p>
                     <br>
                     <#--                <a href="#" class="small"><i class="fa fa-heart"></i> Add to wishlist</a>-->

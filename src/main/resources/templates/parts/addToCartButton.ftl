@@ -1,4 +1,4 @@
-<#macro add productId>
+<#macro add productId href class>
 
 <#assign known = Session.SPRING_SECURITY_CONTEXT??>
 <#if known>
@@ -12,7 +12,7 @@
     <#assign userId="-1">
 </#if>
 
-<a href="#" class="btn btn-primary"
+<a href="${href}" class="${class}"
    onclick="setCookie('incart',
            (parseInt(getCookie('incart'), 10) + 1).toString(),
            {/*secure: false, 'max-age': 216000*/}
