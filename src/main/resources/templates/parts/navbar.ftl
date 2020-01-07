@@ -22,6 +22,16 @@
             </#if>
         </ul>
 
+        <div class="icontext mr-4" style="max-width: 300px;">
+            <span class="icon icon-sm rounded-circle bg-light">
+                <i class="fa fa-shopping-cart text-primary"></i>
+                <span class="notify">1</span>
+	        </span>
+            <div class="text">
+                Shopping cart
+            </div>
+        </div> <!-- iconbox // -->
+
         <div class="navbar-text mr-3">${name}</div>
         <#-- Сделать кнопку logout показывающейся только после входа -->
         <@l.logout />

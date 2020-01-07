@@ -1,6 +1,8 @@
 package com.lider.BlockNoteWebApp.repos;
 
 import com.lider.BlockNoteWebApp.domain.Message;
+
+import com.lider.BlockNoteWebApp.domain.Product;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -8,6 +10,6 @@ import java.util.List;
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 // CRUD refers Create, Read, Update, Delete
 
-public interface MessageRepo extends CrudRepository<Message, Integer> {
-    List<Message> findByTag(String name);
+public interface ProductRepo extends CrudRepository<Product, Integer> {
+    List<Product> findByName(String name);
 }
