@@ -32,12 +32,20 @@ public class Product {
         this.cost = cost;
     }
 
+    public BigInteger getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
 
     public int getCost() {
         return cost;
+    }
+
+    public String getImageFileName() {
+        return imageFileName;
     }
 
     public void setImageFileName(String imageFileName) {

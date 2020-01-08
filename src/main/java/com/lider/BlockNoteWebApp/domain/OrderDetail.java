@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.File;
 import java.io.Serializable;
 import java.math.BigInteger;
 
@@ -40,6 +41,18 @@ public class OrderDetail {
 
     @Column(name = "Amount")
     private int amount;
+
+    public String getProductFileName() {
+        return this.product.getImageFileName();
+    }
+
+//    public BigInteger getProductId() {
+//        return this.product.getId();
+//    }
+
+    public Product getProduct() {
+        return product;
+    }
 
     public OrderDetail(Integer amount,
                        Integer price,
