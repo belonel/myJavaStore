@@ -42,3 +42,20 @@ function postRequest(productId, url) {
 //	Вот здесь мы и передаем строку с данными, которую формировали выше. И собственно выполняем запрос.
     request.send(params);
 }
+
+function sendDelete(event, name, value) {
+    var xhttp = new XMLHttpRequest();
+    var params = name + '=' + value;
+    event.preventDefault();
+    xhttp.open("DELETE", this.href, true);
+
+    //Send the proper header information along with the request
+    xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhttp.onreadystatechange = function() {//Call a function when the state changes.
+        if(xhttp.readyState == 4 && xhttp.status == 200) {
+            alert(xhttp.responseText);
+        }
+    }
+
+    xhttp.send(params);
+}

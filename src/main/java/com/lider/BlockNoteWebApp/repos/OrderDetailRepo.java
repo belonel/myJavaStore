@@ -18,5 +18,7 @@ public interface OrderDetailRepo extends CrudRepository<OrderDetail, BigInteger>
 //    @Query(value = "SELECT * FROM order_details WHERE PRODUCT_ID = ?0", nativeQuery = true)
     OrderDetail findByProductId(BigInteger id);
 
+//    void deleteByProductId(BigInteger id);
+
     //OrderDetail findByProduct(Product product);
 }

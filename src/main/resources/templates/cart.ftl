@@ -56,9 +56,20 @@
                             <td class="text-right d-none d-md-block">
                                 <#-- LIKE BUTTON -->
                                 <#--<a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>-->
-                                <a href="" class="btn btn-light"> Remove</a>
+<#---------------------------------------------------------------------------------------------------------->
+                                <#--REMOVE button with DELETE REEQUEST-->
+                                <#--<a href="/cart" class="btn btn-light" onclick="sendDelete(event, 'productName', ${item.getProduct().id})"> Remove</a>-->
+                                <form action="/cart" method="post">
+                                    <input type="hidden" name="productId" value="${item.getProduct().id}">
+                                    <button class="btn btn-light" style="display: inline-block;">Remove</button>
+                                </form>
                             </td>
                         </tr>
+
+                        <#else>
+                            <tr style="height: 100px;">
+                                <td class="py-5">В Корзине пока нет ни одного товара.</td>
+                            </tr>
                         </#list>
 
                         </tbody>

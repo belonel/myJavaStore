@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -43,14 +40,37 @@ public class CartController {
     }
 
     @PostMapping
-    public String checkout(
+    public String updateCart(
             @AuthenticationPrincipal User user,
             @RequestParam BigInteger productId,
-            @RequestParam int count,
+            @RequestParam(required = false, defaultValue = "-1") Integer count,
             Model model
     ) {
-        Order order = OrderRepo.findByCustomer(user);
-        //
+        if (count == -1) {
+            updateOrder(productId,0, user, model);
+//            OrderDetailRepo.deleteByProductId(productId);
+            OrderDetail orderDetail = OrderDetailRepo.findByProductId(productId);
+            OrderDetailRepo.delete(orderDetail);
+
+            Order order = OrderRepo.findByCustomer(user);
+            List<OrderDetail> orderDetails = OrderDetailRepo.findAllByOrder(order);
+            model.addAttribute("order", order);
+            model.addAttribute("orderdetails", orderDetails);
+        }
+        else {
+            updateOrder(productId, count, user, model);
+        }
+
+        return "cart";
+    }
+
+    private void updateOrder(
+            BigInteger productId,
+            Integer count,
+            User user,
+            Model model
+    ) {
+        //Updating Order details
         OrderDetail productDetails = OrderDetailRepo.findByProductId(productId);
 
         productDetails.setQuanity(count);
@@ -58,18 +78,31 @@ public class CartController {
         Integer newProductAmount = count * productDetails.getPrice();
         productDetails.setAmount(newProductAmount);
 
+        OrderDetailRepo.save(productDetails);
+
+        //Updating OrderS
+        Order order = OrderRepo.findByCustomer(user);
         Integer prevOrderAmount = order.getAmount();
         order.setAmount(prevOrderAmount - prevProductAmount + newProductAmount);
 
-        //
-        OrderRepo.save(order);
         OrderDetailRepo.save(productDetails);
 
+        //Adding everything on th page
         List<OrderDetail> orderDetails = OrderDetailRepo.findAllByOrder(order);
 
         model.addAttribute("order", order);
         model.addAttribute("orderdetails", orderDetails);
-
-        return "cart";
     }
+
+//    @DeleteMapping
+//    public String removeOrderDetails(
+//            @AuthenticationPrincipal User user,
+//            @RequestParam BigInteger productId,
+//            Model model
+//    ) {
+//        updateOrder(productId,0, user, model);
+//        OrderDetailRepo.deleteByProductId(productId);
+//
+//        return "cart";
+//    }
 }
