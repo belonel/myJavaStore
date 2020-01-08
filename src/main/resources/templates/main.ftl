@@ -53,7 +53,7 @@
                     </div>
                 </div>
 
-                <input type="hidden" name="_csrf" value="${_csrf.token}" />
+<#--                <input type="hidden" name="_csrf" value="${_csrf.token}" />-->
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
                         Add
@@ -132,8 +132,8 @@
                     <p class="small text-success"> Бесплатная доставка </p>
                     <br>
                     <p>
-                        <@addToCart.add "${product.id}" "#" "btn btn-outline-primary"> <#-- id href class-->
-                            В корзину
+                        <@addToCart.add "${product.id}" "/main" "btn btn-outline-primary md-2"> <#-- id href class-->
+
                         </@addToCart.add>
                         <a href="/main/${product.id}" class="btn btn-light"> Подробнее  </a>
                     </p>

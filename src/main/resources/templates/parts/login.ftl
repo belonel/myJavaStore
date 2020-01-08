@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+<#--        <input type="hidden" name="_csrf" value="${_csrf.token}" />-->
 
         <div class="form-group row">
             <div class="col-sm-2"></div>
@@ -27,7 +27,7 @@
 
 <#macro logout>
     <form action="/logout" method="post">
-        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+<#--        <input type="hidden" name="_csrf" value="${_csrf.token}" />-->
         <button class="btn btn-primary" type="submit">Sign Out</button>
     </form>
 </#macro>

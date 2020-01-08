@@ -2,6 +2,12 @@
 
 <@common.page>
     <h5>Your order:</h5>
-<#--    <#list items as item>-->
-<#--    </#list>-->
+    <#list orderdetails as item>
+        Товар: ${item.getProductName()}
+        Цена: ${item.price}
+        Количество: ${item.quanity}
+        Количество: ${item.quanity}
+    </#list>
+
+    Итого: ${order.amount}
 </@common.page>

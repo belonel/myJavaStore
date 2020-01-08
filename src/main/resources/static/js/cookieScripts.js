@@ -45,3 +45,8 @@ function deleteCookie(name) {
 
 // Обратите внимание: когда мы обновляем или удаляем куки, нам следует использовать только такие же настройки пути и домена, как при установки куки.
 
+function incrementsIncartCookie() {
+    setCookie('incart',
+        (parseInt(getCookie('incart'), 10) + 1).toString(),
+        {});
+}

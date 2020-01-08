@@ -99,13 +99,10 @@
                         </div> <!-- col.// -->
                     </div> <!-- row.// -->
 
-                    <@addToCart.add "${product.id}" "#" "btn btn-outline-primary"> <#-- id href class-->
-                        <span class="text"> В корзину </span> <i class="fas fa-shopping-cart"></i>
+                    <@addToCart.add "${product.id}" "/main/${product.id}" "btn btn-outline-primary md-2"> <#-- id href class-->
+<#--                        <i class="fas fa-shopping-cart"></i>-->
                     </@addToCart.add>
-                    <@addToCart.add "${product.id}" "/cart" "btn btn-primary">
-                        Оформить заказ
-                    </@addToCart.add>
-                    <#-- <a href="/cart" class="btn  btn-primary">Оформить заказ</a>-->
+                    <a href="/cart" class="btn  btn-primary">Перейти в корзину</a>
                 </article> <!-- product-info-aside .// -->
             </main> <!-- col.// -->
         </div> <!-- row.// -->

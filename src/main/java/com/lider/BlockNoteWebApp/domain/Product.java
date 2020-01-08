@@ -6,6 +6,7 @@ import lombok.Setter;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 
 @Entity
 @Table(name = "products")
@@ -15,7 +16,7 @@ import javax.persistence.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private BigInteger id;
 
     private String name;
     private String shortDescription;
@@ -29,6 +30,14 @@ public class Product {
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
         this.cost = cost;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCost() {
+        return cost;
     }
 
     public void setImageFileName(String imageFileName) {
