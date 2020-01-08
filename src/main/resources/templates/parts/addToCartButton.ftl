@@ -11,13 +11,15 @@
 <#--<#else>-->
 <#--    <#assign userId="-1">-->
 <#--</#if>-->
-    <div>
-    <form action="${href}" method="post">
+<#--    <div>-->
+
+    <form action="${href}" method="post" class="btn" style="padding: 0;">
         <input type="hidden" name="productId" value="${productId}">
-        <input type="submit" value="В Корзину"
+        <input type="submit" value="В корзину"
                onclick="incrementsIncartCookie();" class="${class}">
     </form>
     <#nested>
-    </div>
+<#--    <p style="padding: 3px;"></p>-->
+<#--    </div>-->
 <#--    onclick="incrementsIncartCookie(); return false;"-->
 </#macro>

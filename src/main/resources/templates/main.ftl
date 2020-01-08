@@ -131,12 +131,11 @@
 
                     <p class="small text-success"> Бесплатная доставка </p>
                     <br>
-                    <p>
-                        <@addToCart.add "${product.id}" "/main" "btn btn-outline-primary md-2"> <#-- id href class-->
-
+                    <div>
+                        <@addToCart.add "${product.id}" "/main" "btn btn-primary"> <#-- id href class-->
                         </@addToCart.add>
                         <a href="/main/${product.id}" class="btn btn-light"> Подробнее  </a>
-                    </p>
+                    </div>
                     <br>
                     <#--                <a href="#" class="small"><i class="fa fa-heart"></i> Add to wishlist</a>-->
                 </aside> <!-- col.// -->
