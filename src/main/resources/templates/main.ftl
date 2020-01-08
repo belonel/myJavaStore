@@ -4,11 +4,13 @@
 
 <@common.page>
 
+    <h1 class="my-5">Каталог товаров</h1>
+
     <div class="form-row">
         <div class="form-group col-md-6">
             <form method="get" action="/main" class="form-inline">
                 <div>
-                    <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Search by tag">
+                    <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Search by name">
                 </div>
                 <button type="submit" class="btn btn-primary ml-2">
                     Search
@@ -17,10 +19,12 @@
         </div>
     </div>
 
-    <a class="btn btn-primary" data-toggle="collapse" href="#collapseCreateForm" role="button" aria-expanded="false" aria-controls="collapseCreateForm">
-        Add new Message
-    </a>
-    <div class="collapseCreateForm" id="collapseCreateForm">
+<#--    <a class="btn btn-primary" data-toggle="collapse" href="#collapseCreateForm" role="button" aria-expanded="false" aria-controls="collapseCreateForm">-->
+<#--        Add new Message-->
+<#--    </a>-->
+    <h5 class="my-3 ml-1">Добавить новый товар</h5>
+<#--    <div class="collapseCreateForm" id="collapseCreateForm">-->
+    <div>
         <div class="form-group mt-3">
             <form method="post" enctype="multipart/form-data">
 

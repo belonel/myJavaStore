@@ -54,7 +54,8 @@
                                 </div> <!-- price-wrap .// -->
                             </td>
                             <td class="text-right d-none d-md-block">
-                                <a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>
+                                <#-- LIKE BUTTON -->
+                                <#--<a data-original-title="Save to Wishlist" title="" href="" class="btn btn-light" data-toggle="tooltip"> <i class="fa fa-heart"></i></a>-->
                                 <a href="" class="btn btn-light"> Remove</a>
                             </td>
                         </tr>
@@ -76,43 +77,50 @@
 
         </aside> <!-- col.// -->
         <aside class="col-lg-3">
-
-            <div class="card mb-3">
-                <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <label>Have coupon?</label>
-                            <div class="input-group">
-                                <input type="text" class="form-control" name="" placeholder="Coupon code">
-                                <span class="input-group-append">
-				<button class="btn btn-primary">Apply</button>
-			</span>
-                            </div>
-                        </div>
-                    </form>
-                </div> <!-- card-body.// -->
-            </div> <!-- card.// -->
+<#-----------------------------------COUPON CARD-------------------------------------->
+            <#--<div class="card mb-3">-->
+            <#--    <div class="card-body">-->
+            <#--        <form>-->
+            <#--            <div class="form-group">-->
+            <#--                <label>Have coupon?</label>-->
+            <#--                <div class="input-group">-->
+            <#--                    <input type="text" class="form-control" name="" placeholder="Coupon code">-->
+            <#--                    <span class="input-group-append">-->
+            <#--                        <button class="btn btn-primary">Apply</button>-->
+            <#--                    </span>-->
+            <#--                </div>-->
+            <#--            </div>-->
+            <#--        </form>-->
+            <#--    </div> <!-- card-body.// &ndash;&gt;-->
+            <#--</div> <!-- card.// &ndash;&gt;-->
 
             <div class="card">
                 <div class="card-body">
                     <dl class="dlist-align">
-                        <dt>Total price:</dt>
-                        <dd class="text-right">$69.97</dd>
+                        <dt>Итоговая цена:</dt>
+                        <dd class="text-right"> ₽${order.amount}</dd>
                     </dl>
                     <dl class="dlist-align">
-                        <dt>Discount:</dt>
-                        <dd class="text-right text-danger">- $10.00</dd>
+                        <dt>Скидка:</dt>
+                        <dd class="text-right text-danger">- ₽0</dd>
                     </dl>
                     <dl class="dlist-align">
-                        <dt>Total:</dt>
-                        <dd class="text-right text-dark b"><strong>$59.97</strong></dd>
+                        <dt>ИТОГО:</dt>
+                        <dd class="text-right text-dark b"><strong> ₽${order.amount}</strong></dd>
                     </dl>
                     <hr>
                     <p class="text-center mb-3">
-                        <img src="bootstrap-ecommerce-html/images/misc/payments.png" height="26">
+                        <#--<img src="../../../../uploads/cookie.png" height="26">-->
                     </p>
-                    <a href="#" class="btn btn-primary btn-block"> Make Purchase </a>
-                    <a href="#" class="btn btn-light btn-block">Continue Shopping</a>
+                    <#--<a href="/checkout" class="btn btn-primary btn-block">-->
+                    <#--    Оплатить заказ-->
+                    <#--</a>-->
+
+                    <form action="/checkout" method="post" class="btn-block" style="padding: 0;">
+                        <input type="hidden" name="totalPrice" value="${order.amount}">
+                        <button class="btn btn-primary btn-block">Оплатить заказ</button>
+                    </form>
+                    <a href="/main" class="btn btn-light btn-block">Продолжить покупки</a>
                 </div> <!-- card-body.// -->
             </div> <!-- card.// -->
 

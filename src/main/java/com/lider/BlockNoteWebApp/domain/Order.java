@@ -48,7 +48,7 @@ public class Order {
     private int orderNum;
 
     @Column(name = "Amount", nullable = false)
-    private double amount;
+    private Integer amount;
 
     @Column(name = "Customer_Name", length = 255)
     private String customerName;
@@ -66,12 +66,12 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User customer;
 
-    public Order(double amount, User customer) {
+    public Order(Integer amount, User customer) {
         this.amount = amount;
         this.customer = customer;
     }
 
-    public Order(double amount,
+    public Order(Integer amount,
                  String customerAddress,
                  String customerEmail,
                  String customerName,
@@ -88,7 +88,7 @@ public class Order {
         this.customer = customer;
     }
 
-    public Order(Date orderDate, double amount, User customer) {
+    public Order(Date orderDate, Integer amount, User customer) {
         this.orderDate = orderDate;
         this.amount = amount;
         this.customer = customer;
@@ -98,11 +98,11 @@ public class Order {
         return orderId;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Integer amount) {
         this.amount = amount;
     }
 
-    public double getAmount() {
+    public Integer getAmount() {
         return amount;
     }
 }

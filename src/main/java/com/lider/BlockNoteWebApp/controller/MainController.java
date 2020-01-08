@@ -151,7 +151,7 @@ public class MainController {
             orderdetails.setAmount(quanity*price);
         }
 
-        double am = order.getAmount();
+        Integer am = order.getAmount();
         order.setAmount(am + price);
 
         OrderRepo.save(order);

@@ -46,12 +46,16 @@ public class OrderDetail {
         return this.product.getImageFileName();
     }
 
-//    public BigInteger getProductId() {
-//        return this.product.getId();
-//    }
-
     public Product getProduct() {
         return product;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public int getPrice() {
+        return price;
     }
 
     public OrderDetail(Integer amount,

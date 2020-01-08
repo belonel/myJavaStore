@@ -2,9 +2,9 @@ package com.lider.BlockNoteWebApp.controller;
 
 import com.lider.BlockNoteWebApp.domain.Order;
 import com.lider.BlockNoteWebApp.domain.OrderDetail;
-import com.lider.BlockNoteWebApp.domain.Product;
 import com.lider.BlockNoteWebApp.domain.User;
 import com.lider.BlockNoteWebApp.repos.OrderDetailRepo;
+import com.lider.BlockNoteWebApp.repos.OrderRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,11 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import com.lider.BlockNoteWebApp.repos.*;
 
 @Controller
 @RequestMapping("/cart") //чтобы в каждом методе отдельно не прописывать
@@ -41,6 +38,37 @@ public class CartController {
 
         model.put("order", order);
         model.put("orderdetails", orderDetails);
+
+        return "cart";
+    }
+
+    @PostMapping
+    public String checkout(
+            @AuthenticationPrincipal User user,
+            @RequestParam BigInteger productId,
+            @RequestParam int count,
+            Model model
+    ) {
+        Order order = OrderRepo.findByCustomer(user);
+        //
+        OrderDetail productDetails = OrderDetailRepo.findByProductId(productId);
+
+        productDetails.setQuanity(count);
+        Integer prevProductAmount = productDetails.getAmount();
+        Integer newProductAmount = count * productDetails.getPrice();
+        productDetails.setAmount(newProductAmount);
+
+        Integer prevOrderAmount = order.getAmount();
+        order.setAmount(prevOrderAmount - prevProductAmount + newProductAmount);
+
+        //
+        OrderRepo.save(order);
+        OrderDetailRepo.save(productDetails);
+
+        List<OrderDetail> orderDetails = OrderDetailRepo.findAllByOrder(order);
+
+        model.addAttribute("order", order);
+        model.addAttribute("orderdetails", orderDetails);
 
         return "cart";
     }
