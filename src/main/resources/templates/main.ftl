@@ -58,6 +58,8 @@
                 </div>
 
 <#--                <input type="hidden" name="_csrf" value="${_csrf.token}" />-->
+                <input type="hidden" name="isAddProductRequest" value="true" />
+
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary">
                         Add
@@ -122,9 +124,17 @@
                         <small class="label-rating text-success">
                             <i class="fa fa-clipboard-check"></i> 117 orders </small>
                     </div> <!-- rating-wrap.// -->
-
+<#--------------------------------------DESCRIPTION--------------------------------------->
                     <p>${product.shortDescription}</p>
-                    <#--<p>The largest Apple Watch display yet. Electrical heart sensor. Re-engineered Digital Crown with haptic feedback. Entirely familiar, yet completely redesigned, Apple Watch Series 4 resets the standard for what a watch can be.</p>-->
+<#--------------------------------------EDIT/DELETE BUTTONS--------------------------------------->
+                    <br>
+                    <a href="/main/${product.id}/edit" class="btn btn-light">Edit</a>
+
+                    <form action="/main" method="post" class="btn btn-light" style="padding: 0;">
+                        <input type="hidden" name="productId" value="${product.id}">
+                        <input type="hidden" name="isDeleteRequest" value="true">
+                        <button class="btn btn-block">Delete</button>
+                    </form>
 
                 </article> <!-- col.// -->
                 <aside class="col-sm-3">

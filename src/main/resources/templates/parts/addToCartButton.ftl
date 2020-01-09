@@ -15,6 +15,7 @@
 
     <form action="${href}" method="post" class="btn" style="padding: 0;">
         <input type="hidden" name="productId" value="${productId}">
+        <input type="hidden" name="isAddToCartRequest" value="true">
         <input type="submit" value="В корзину"
                onclick="incrementsIncartCookie();" class="${class}">
     </form>

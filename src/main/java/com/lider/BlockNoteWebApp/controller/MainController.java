@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.time.Instant;
-import java.time.LocalDate;
 import java.util.*;
 
 @Controller
@@ -74,6 +72,32 @@ public class MainController {
         return "main";
     }
 
+    private void deleteProductFromEverywhere(
+            BigInteger productId,
+            User user
+    ) {
+        //Changing Order details count and amount to 0
+        OrderDetail productDetails = OrderDetailRepo.findByProductId(productId);
+        if(productDetails != null) { //Если товар есть у кого-то в заказах.
+            Integer prevProductAmount = productDetails.getAmount();
+            productDetails.setAmount(0);
+
+//        OrderDetailRepo.save(productDetails);
+
+            //Changing Order Amount to newAmount without productAmount
+            Order order = OrderRepo.findByCustomer(user);
+            Integer prevOrderAmount = order.getAmount();
+            order.setAmount(prevOrderAmount - prevProductAmount);
+
+            //now deleting all OrderDetails with this Product
+            OrderDetailRepo.delete(productDetails);
+        }
+
+        //then deleting the Product
+        Product product = ProductRepo.findById(productId).get();
+        ProductRepo.delete(product);
+    }
+
     //Adding new message to the system
     @PostMapping("/main")
     public String add(
@@ -87,9 +111,19 @@ public class MainController {
             @RequestParam(required = false, name="file") MultipartFile file,
             Model model,
             @AuthenticationPrincipal User user,
-            @RequestParam(required = false, defaultValue = "0") BigInteger productId
+            @RequestParam(required = false, defaultValue = "0") BigInteger productId,
+            @RequestParam(required = false, defaultValue = "false") boolean isDeleteRequest,
+            @RequestParam(required = false, defaultValue = "false") boolean isAddToCartRequest,
+            @RequestParam(required = false, defaultValue = "false") boolean isAddProductRequest
     ) throws IOException {
-        if (productId == BigInteger.valueOf(0) || !"".equals(name)) { // если это запрос не от кнопки добавления в корзину
+        if (isDeleteRequest) {//DELETE REQUEST
+            //deliting all instances containing this product... and the product itself
+            deleteProductFromEverywhere(productId, user);
+        }
+        else if(isAddToCartRequest) {
+            addToCart(user, productId, model);
+        }
+        else if (isAddProductRequest) { //запрос на добавление товара
             //Message message = new Message(text, tag, user);
             Product product = new Product(name, shortDescr, longDescr, cost);
 
@@ -107,9 +141,6 @@ public class MainController {
             }
 
             ProductRepo.save(product);
-        }
-        else {
-            addToCart(user, productId, model);
         }
 
         Iterable<Product> products = ProductRepo.findAll();

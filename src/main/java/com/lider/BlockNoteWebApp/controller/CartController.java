@@ -46,7 +46,7 @@ public class CartController {
             @RequestParam(required = false, defaultValue = "-1") Integer count,
             Model model
     ) {
-        if (count == -1) {
+        if (count == -1) {//DELETE REQUEST
             updateOrder(productId,0, user, model);
 //            OrderDetailRepo.deleteByProductId(productId);
             OrderDetail orderDetail = OrderDetailRepo.findByProductId(productId);
