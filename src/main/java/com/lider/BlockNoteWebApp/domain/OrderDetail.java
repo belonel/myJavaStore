@@ -94,4 +94,8 @@ public class OrderDetail {
     public void setAmount(Integer amount) {
         this.amount = amount;
     }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
 }

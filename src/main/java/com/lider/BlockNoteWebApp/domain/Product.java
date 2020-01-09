@@ -51,4 +51,20 @@ public class Product {
     public void setImageFileName(String imageFileName) {
         this.imageFileName = imageFileName;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+    }
+
+    public void setLongDescription(String longDescription) {
+        this.longDescription = longDescription;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
 }
