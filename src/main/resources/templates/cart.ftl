@@ -33,12 +33,14 @@
                                         <a href="#" class="title text-dark">${item.getProductName()}</a>
                                         <#-- Добавить поля автора и дату создания к товару. по product_id брать эту инфу. Например
                                         item.findProductById().createDate-->
-                                        <p class="text-muted small"> Товар от  <br> Автор </p>
+                                        <p class="text-muted small"> Товар создан: ${item.getProduct().creationDate} <br> Автор: ${item.getProduct().getAuthor().username}</p>
                                     </figcaption>
                                 </figure>
                             </td>
                             <td>
+<#-------IS UPDATE COUNT REQUEST-------------------------------------------------------------------------------->
                                 <form action="/cart" method="post">
+                                    <input type="hidden" name="isUpdateRequest" value="true">
                                     <#--<div class="form-group" style="display: inline-block;">-->
                                     <input type="number" class="form-control" name="count" value="${item.quanity}"
                                            width="50px" style="width: 50%; display: inline-block;"/>
@@ -59,8 +61,10 @@
 <#---------------------------------------------------------------------------------------------------------->
                                 <#--REMOVE button with DELETE REEQUEST-->
                                 <#--<a href="/cart" class="btn btn-light" onclick="sendDelete(event, 'productName', ${item.getProduct().id})"> Remove</a>-->
+<#-------IS DELETE PRODUCT REQUEST-------------------------------------------------------------------------------->
                                 <form action="/cart" method="post">
                                     <input type="hidden" name="productId" value="${item.getProduct().id}">
+                                    <input type="hidden" name="isDeleteRequest" value="true">
                                     <button class="btn btn-light" style="display: inline-block;">Remove</button>
                                 </form>
                             </td>
@@ -105,32 +109,84 @@
             <#--    </div> <!-- card-body.// &ndash;&gt;-->
             <#--</div> <!-- card.// &ndash;&gt;-->
 
+<#--            <div class="card">-->
+<#--                <div class="card-body">-->
+<#--                    <dl class="dlist-align">-->
+<#--                        <dt>Итоговая цена:</dt>-->
+<#--                        <dd class="text-right"> ₽${order.amount}</dd>-->
+<#--                    </dl>-->
+<#--                    <dl class="dlist-align">-->
+<#--                        <dt>Скидка:</dt>-->
+<#--                        <dd class="text-right text-danger">- ₽0</dd>-->
+<#--                    </dl>-->
+<#--                    <dl class="dlist-align">-->
+<#--                        <dt>ИТОГО:</dt>-->
+<#--                        <dd class="text-right text-dark b"><strong> ₽${order.amount}</strong></dd>-->
+<#--                    </dl>-->
+<#--                    <hr>-->
+<#--                    <p class="text-center mb-3">-->
+<#--                        &lt;#&ndash;<img src="../../../../uploads/cookie.png" height="26">&ndash;&gt;-->
+<#--                    </p>-->
+
+<#--                    <form action="/checkout" method="post" class="btn-block" style="padding: 0;">-->
+<#--                        <input type="hidden" name="totalPrice" value="${order.amount}">-->
+<#--                        <button class="btn btn-primary btn-block">Оплатить заказ</button>-->
+<#--                    </form>-->
+<#--                    <a href="/main" class="btn btn-light btn-block">Продолжить покупки</a>-->
+<#--                </div> <!-- card-body.// &ndash;&gt;-->
+<#--            </div> <!-- card.// &ndash;&gt;-->
+
+            <div class="card mb-3">
+                <div class="card-body">
+<#-------IS SET EMAIL REQUEST-------------------------------------------------------------------------------->
+                    <form action="/cart" method="post">
+                        <input type="hidden" name="isSetEmailRequest" value="true">
+                        <div class="form-group">
+                            <label>E-mail для отправки</label>
+                            <div class="input-group">
+                                <input type="email" class="form-control" name="email" value="${order.customerEmail!}">
+                                <span class="input-group-append">
+                                    <button class="btn btn-primary">Да</button>
+                                </span>
+                            </div>
+                        </div>
+                        <p>Вы можете отправить себе, или указать e-mail друга :)</p>
+                    </form>
+                </div> <!-- card-body.// -->
+            </div> <!-- card.// -->
+
             <div class="card">
                 <div class="card-body">
                     <dl class="dlist-align">
-                        <dt>Итоговая цена:</dt>
-                        <dd class="text-right"> ₽${order.amount}</dd>
+                        <dt>У вас на счету есть</dt>
+                        <dd class="text-right text-dark b">${user.money} койнов</dd>
                     </dl>
                     <dl class="dlist-align">
-                        <dt>Скидка:</dt>
-                        <dd class="text-right text-danger">- ₽0</dd>
+                        <dt>Цена всех товаров</dt>
+                        <dd class="text-right">${order.amount} койнов</dd>
                     </dl>
-                    <dl class="dlist-align">
-                        <dt>ИТОГО:</dt>
-                        <dd class="text-right text-dark b"><strong> ₽${order.amount}</strong></dd>
-                    </dl>
-                    <hr>
-                    <p class="text-center mb-3">
-                        <#--<img src="../../../../uploads/cookie.png" height="26">-->
-                    </p>
-                    <#--<a href="/checkout" class="btn btn-primary btn-block">-->
-                    <#--    Оплатить заказ-->
-                    <#--</a>-->
+                    <#if isNotEnoughCoins??><#--Если есть сообщение об ошибке-->
+                        <div class="alert alert-danger" role="alert">
+                            Недостаточно средств.
+                        </div>
+                    <#else>
+                        <dl class="dlist-align">
+                            <dt>Останется после оплаты</dt>
+                            <dd class="text-right"><strong> ${user.money - order.amount} койнов</strong></dd>
+                        </dl>
+                        <hr>
+                        <p class="text-center mb-3">
 
-                    <form action="/checkout" method="post" class="btn-block" style="padding: 0;">
-                        <input type="hidden" name="totalPrice" value="${order.amount}">
-                        <button class="btn btn-primary btn-block">Оплатить заказ</button>
-                    </form>
+                            <#--<img src="../../../../uploads/cookie.png" height="26">-->
+                        </p>
+<#-------IS CHECKOUT REQUEST-------------------------------------------------------------------------------->
+                        <form action="/cart" method="post" class="btn-block" style="padding: 0;">
+                            <input type="hidden" name="orderId" value="${order.orderId}">
+                            <input type="hidden" name="isCheckoutRequest" value="true">
+                            <button class="btn btn-primary btn-block">Отправить</button>
+                        </form>
+                    </#if>
+
                     <a href="/main" class="btn btn-light btn-block">Продолжить покупки</a>
                 </div> <!-- card-body.// -->
             </div> <!-- card.// -->

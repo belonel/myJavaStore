@@ -8,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.util.Collection;
 import java.util.Set;
 
@@ -19,10 +20,12 @@ import java.util.Set;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private BigInteger id;
     private String username;
     private String password;
     private boolean active;
+
+    private Integer money;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -58,6 +61,14 @@ public class User implements UserDetails {
         return isActive();
     }
 
+    public void setMoney(Integer money) {
+        this.money = money;
+    }
+
+    public Integer getMoney() {
+        return money;
+    }
+
     public void setActive(boolean active) {
         this.active = active;
     }
@@ -70,7 +81,7 @@ public class User implements UserDetails {
         return active;
     }
 
-    public Long getId() {
+    public BigInteger getId() {
         return id;
     }
 

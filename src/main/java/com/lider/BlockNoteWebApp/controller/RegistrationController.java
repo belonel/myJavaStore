@@ -27,12 +27,13 @@ public class RegistrationController {
         User userFromDb = userRepo.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
-            model.put("message", "User exists!");
+            model.put("message", "Пользователь с таким ником уже существует.");
             return "registration";
         }
 
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
+        user.setMoney(1000);
         userRepo.save(user);
 
         return "redirect:/login";

@@ -4,20 +4,46 @@
 
 <@common.page>
 
-    <h1 class="my-5">Каталог товаров</h1>
-
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <form method="get" action="/main" class="form-inline">
-                <div>
-                    <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Search by name">
+    <h2 class="my-3">Каталог товаров</h2>
+<#-----------------------SEARCH------------------------------->
+    <div class="row">
+        <div class="">
+            <div class="card" style="display: inline-block;">
+                <div class="card-body">
+                    <h5 class="card-title">Поиск</h5>
+                    <form method="get" action="/main" class="form-inline">
+                        <div class="input-group">
+                            <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Search by name">
+                            <span class="input-group-append">
+                                <button class="btn btn-primary"> <i class="fa fa-search"></i></button>
+                            </span>
+                        </div>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary ml-2">
-                    Search
-                </button>
-            </form>
+            </div>
         </div>
+
+<#-----------------------FILTER----------------------------->
+        <div class="">
+            <div class="card ml-3" style="display: inline-block;">
+                <div class="card-body">
+                    <h5 class="card-title">Показать только</h5>
+                    <div class="row">
+                        <form action="/main" method="get">
+                            <input type="hidden" name="onlyMyProducts" value="true">
+                            <button class="btn btn-light mr-2">Мои товары</button>
+                        </form>
+                        <form action="/main" method="get">
+                            <input type="hidden" name="onlyMyProducts" value="false">
+                            <button class="btn btn-light mr-2">Все</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col"></div>
     </div>
+
 
 <#--    <a class="btn btn-primary" data-toggle="collapse" href="#collapseCreateForm" role="button" aria-expanded="false" aria-controls="collapseCreateForm">-->
 <#--        Add new Message-->
@@ -128,13 +154,15 @@
                     <p>${product.shortDescription}</p>
 <#--------------------------------------EDIT/DELETE BUTTONS--------------------------------------->
                     <br>
-                    <a href="/main/${product.id}/edit" class="btn btn-light">Edit</a>
+                    <#if product.getAuthor().id == user.id>
+                        <a href="/main/${product.id}/edit" class="btn btn-light">Edit</a>
 
-                    <form action="/main" method="post" class="btn btn-light" style="padding: 0;">
-                        <input type="hidden" name="productId" value="${product.id}">
-                        <input type="hidden" name="isDeleteRequest" value="true">
-                        <button class="btn btn-block">Delete</button>
-                    </form>
+                        <form action="/main" method="post" class="btn btn-light" style="padding: 0;">
+                            <input type="hidden" name="productId" value="${product.id}">
+                            <input type="hidden" name="isDeleteRequest" value="true">
+                            <button class="btn btn-block">Delete</button>
+                        </form>
+                    </#if>
 
                 </article> <!-- col.// -->
                 <aside class="col-sm-3">
@@ -143,7 +171,7 @@
                         <del class="price-old"> ₽ ${product.cost + 190} </del>
                     </div> <!-- info-price-detail // -->
 
-                    <p class="small text-success"> Бесплатная доставка </p>
+                    <p class="small text-success"> Электронный товар </p>
                     <br>
                     <div>
                         <@addToCart.add "${product.id}" "/main" "btn btn-primary"> <#-- id href class-->

@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -32,9 +33,20 @@ public class CartController {
     ) {
         Order order = OrderRepo.findByCustomer(user);
         List<OrderDetail> orderDetails = OrderDetailRepo.findAllByOrder(order);
+        if (order == null) {
+            //Проверить user на наличие. Если не зарегистрирован непонятно что делать
+            order = new Order(new Date(), 0, user);
+            OrderRepo.save(order);
+        }
 
+        model.put("user", user);
         model.put("order", order);
         model.put("orderdetails", orderDetails);
+
+        //Проверяем, достаточно ли средств, если нет, isNotEnoughCoins = true);
+        if (user.getMoney() < order.getAmount()) {
+            model.put("isNotEnoughCoins", true);
+        }
 
         return "cart";
     }
@@ -42,25 +54,49 @@ public class CartController {
     @PostMapping
     public String updateCart(
             @AuthenticationPrincipal User user,
-            @RequestParam BigInteger productId,
+            @RequestParam(required = false) BigInteger productId,
             @RequestParam(required = false, defaultValue = "-1") Integer count,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false, defaultValue = "false") boolean isCheckoutRequest,
+            @RequestParam(required = false, defaultValue = "false") boolean isDeleteRequest,
+            @RequestParam(required = false, defaultValue = "false") boolean isUpdateRequest,
+            @RequestParam(required = false, defaultValue = "false") boolean isSetEmailRequest,
             Model model
     ) {
-        if (count == -1) {//DELETE REQUEST
+        Order order = OrderRepo.findByCustomer(user);
+        if (isSetEmailRequest) {// Была нажата Да рядом с полем ввода e-mail
+            order.setCustomerEmail(email);
+            OrderRepo.save(order);
+        }
+        else if (isCheckoutRequest) {// Была нажата кнопка Отправить
+            if (order.getAmount() <= 0)
+                model.addAttribute("isNotEnoughCoins", true);
+            else {
+                Integer currentCash = user.getMoney();
+                user.setMoney(currentCash - order.getAmount());
+                return "success";
+            }
+        }
+        else if (count == -1 || isDeleteRequest) {//DELETE REQUEST. Была нажата кнопка Remove
             updateOrder(productId,0, user, model);
 //            OrderDetailRepo.deleteByProductId(productId);
             OrderDetail orderDetail = OrderDetailRepo.findByProductId(productId);
             OrderDetailRepo.delete(orderDetail);
-
-            Order order = OrderRepo.findByCustomer(user);
-            List<OrderDetail> orderDetails = OrderDetailRepo.findAllByOrder(order);
-            model.addAttribute("order", order);
-            model.addAttribute("orderdetails", orderDetails);
         }
-        else {
+        else if (isUpdateRequest) { //Была нажата кнопка OK
             updateOrder(productId, count, user, model);
         }
 
+        List<OrderDetail> orderDetails = OrderDetailRepo.findAllByOrder(order);
+        model.addAttribute("order", order);
+        model.addAttribute("orderdetails", orderDetails);
+
+        model.addAttribute("user", user);
+        //Проверяем, достаточно ли средств, если нет, isNotEnoughCoins = true);
+        if (user.getMoney() < order.getAmount()) {
+            model.addAttribute("isNotEnoughCoins", true);
+        }
+        //возвращаем на страницу Корзины
         return "cart";
     }
 
@@ -88,21 +124,9 @@ public class CartController {
         OrderDetailRepo.save(productDetails);
 
         //Adding everything on th page
-        List<OrderDetail> orderDetails = OrderDetailRepo.findAllByOrder(order);
-
-        model.addAttribute("order", order);
-        model.addAttribute("orderdetails", orderDetails);
-    }
-
-//    @DeleteMapping
-//    public String removeOrderDetails(
-//            @AuthenticationPrincipal User user,
-//            @RequestParam BigInteger productId,
-//            Model model
-//    ) {
-//        updateOrder(productId,0, user, model);
-//        OrderDetailRepo.deleteByProductId(productId);
+//        List<OrderDetail> orderDetails = OrderDetailRepo.findAllByOrder(order);
 //
-//        return "cart";
-//    }
+//        model.addAttribute("order", order);
+//        model.addAttribute("orderdetails", orderDetails);
+    }
 }

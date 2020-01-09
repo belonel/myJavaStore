@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.math.BigInteger;
+import java.util.Date;
 
 @Entity
 @Table(name = "products")
@@ -25,11 +26,34 @@ public class Product {
 //    private  int amountAvailable;
     private String imageFileName;
 
-    public Product(String name, String shortDescription, String longDescription, int cost) {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User author;
+
+    private Date creationDate;
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public String getAuthorName() {
+        return author != null ? author.getUsername() : "<none>";
+    }
+    public BigInteger getAuthorId(BigInteger id) {
+        return author.getId();
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public Product(String name, String shortDescription, String longDescription, int cost, User author,Date date) {
         this.name = name;
         this.shortDescription = shortDescription;
         this.longDescription = longDescription;
         this.cost = cost;
+        this.author = author;
+        this.creationDate = date;
     }
 
     public BigInteger getId() {
@@ -46,6 +70,14 @@ public class Product {
 
     public String getImageFileName() {
         return imageFileName;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 
     public void setImageFileName(String imageFileName) {

@@ -2,6 +2,8 @@
 <#import "parts/addToCartButton.ftl" as addToCart>
 
 <@common.page>
+<#--    <h2 class="title-page">Товар из каталога</h2>-->
+    <a href="/main" class="btn btn-light" style="margin-bottom: 15px;"> < назад</a>
     <div class="card">
         <div class="row no-gutters">
             <aside class="col-md-6">

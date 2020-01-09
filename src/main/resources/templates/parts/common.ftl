@@ -9,6 +9,12 @@
         <title>Lider</title>
 
         <script src="/static/js/cookieScripts.js"></script>
+        <script >
+            var x = getCookie("incart");
+            if (x == null) {
+                setCookie("incart", "0");
+            }
+        </script>
         <script src="/static/js/requests.js"></script>
         <link rel="stylesheet" href="/static/css/style.css">
 

@@ -3,6 +3,7 @@ package com.lider.BlockNoteWebApp.repos;
 import com.lider.BlockNoteWebApp.domain.Message;
 
 import com.lider.BlockNoteWebApp.domain.Product;
+import com.lider.BlockNoteWebApp.domain.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -14,6 +15,8 @@ import java.util.List;
 
 public interface ProductRepo extends CrudRepository<Product, BigInteger> {
     List<Product> findByName(String name);
+
+    List<Product> findAllByAuthor(User user);
 
 //    @Query(value = "SELECT * FROM products WHERE ID = ?0", nativeQuery = true)
 //    Product findById(BigInteger id);

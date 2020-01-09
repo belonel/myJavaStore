@@ -46,17 +46,23 @@ public class MainController {
 
     @GetMapping("/main")
     public String main(
+            @AuthenticationPrincipal User user,
             @CookieValue String incart,
             HttpServletResponse response,
             @RequestParam(required = false, defaultValue = "") String filter,
+            @RequestParam(required = false) boolean onlyMyProducts,
             Model model
     ) {
         Iterable<Product> products = ProductRepo.findAll();
 
         if (filter != null && !filter.isEmpty())
             products = ProductRepo.findByName(filter);
+        else if(onlyMyProducts) {
+            products = ProductRepo.findAllByAuthor(user);
+        }
         else
             products = ProductRepo.findAll();
+
 
         if (incart == "") {
             // create a cookie
@@ -68,6 +74,7 @@ public class MainController {
 
         model.addAttribute("products", products);
         model.addAttribute("filter", filter);
+        model.addAttribute("user", user);
 
         return "main";
     }
@@ -125,7 +132,7 @@ public class MainController {
         }
         else if (isAddProductRequest) { //запрос на добавление товара
             //Message message = new Message(text, tag, user);
-            Product product = new Product(name, shortDescr, longDescr, cost);
+            Product product = new Product(name, shortDescr, longDescr, cost, user, new Date());
 
             if (file != null && !file.getOriginalFilename().isEmpty()) {
                 File uploadDir = new File(uploadPath);
@@ -145,6 +152,7 @@ public class MainController {
 
         Iterable<Product> products = ProductRepo.findAll();
         model.addAttribute("products", products);
+        model.addAttribute("user", user);
         return "main";
     }
 
@@ -166,7 +174,7 @@ public class MainController {
         Date date = new Date();
         if (order == null) {
             //Проверить user на наличие. Если не зарегистрирован непонятно что делать
-            order = new Order(date, product.getCost(), user);
+            order = new Order(date, 0, user);
         }
 
         int price = product.getCost();

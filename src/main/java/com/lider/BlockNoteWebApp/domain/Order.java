@@ -105,4 +105,8 @@ public class Order {
     public Integer getAmount() {
         return amount;
     }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
 }
