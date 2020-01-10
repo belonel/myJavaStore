@@ -50,17 +50,17 @@ public class Order {
     @Column(name = "Amount", nullable = false)
     private Integer amount;
 
-    @Column(name = "Customer_Name", length = 255)
-    private String customerName;
-
-    @Column(name = "Customer_Address", length = 255)
-    private String customerAddress;
+//    @Column(name = "Customer_Name", length = 255)
+//    private String customerName;
+//
+//    @Column(name = "Customer_Address", length = 255)
+//    private String customerAddress;
 
     @Column(name = "Customer_Email", length = 128)
     private String customerEmail;
 
-    @Column(name = "Customer_Phone", length = 128)
-    private String customerPhone;
+//    @Column(name = "Customer_Phone", length = 128)
+//    private String customerPhone;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
@@ -68,23 +68,6 @@ public class Order {
 
     public Order(Integer amount, User customer) {
         this.amount = amount;
-        this.customer = customer;
-    }
-
-    public Order(Integer amount,
-                 String customerAddress,
-                 String customerEmail,
-                 String customerName,
-                 String customerPhone,
-                 Date orderDate,
-                 User customer
-    ) {
-        this.orderDate = orderDate;
-        this.amount = amount;
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerEmail = customerEmail;
-        this.customerPhone = customerPhone;
         this.customer = customer;
     }
 
