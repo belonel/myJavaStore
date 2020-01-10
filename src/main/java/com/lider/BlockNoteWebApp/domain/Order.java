@@ -88,10 +88,11 @@ public class Order {
         this.customer = customer;
     }
 
-    public Order(Date orderDate, Integer amount, User customer) {
+    public Order(Date orderDate, Integer amount, User customer, String email) {
         this.orderDate = orderDate;
         this.amount = amount;
         this.customer = customer;
+        this.customerEmail = email;
     }
 
     public BigInteger getOrderId() {

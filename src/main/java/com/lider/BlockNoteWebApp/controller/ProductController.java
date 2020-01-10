@@ -55,7 +55,7 @@ public class ProductController {
         Date date = new Date();
         if (order == null) {
             //Проверить user на наличие. Если не зарегистрирован непонятно что делать
-            order = new Order(date, 0, user);
+            order = new Order(date, 0, user, user.getEmail());
         }
 
         int price = product.getCost();

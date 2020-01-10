@@ -174,7 +174,7 @@ public class MainController {
         Date date = new Date();
         if (order == null) {
             //Проверить user на наличие. Если не зарегистрирован непонятно что делать
-            order = new Order(date, 0, user);
+            order = new Order(date, 0, user, user.getEmail());
         }
 
         int price = product.getCost();
@@ -185,6 +185,7 @@ public class MainController {
             orderdetails = new OrderDetail(quanity*price, price, quanity, order, product);
         }
         else {
+            orderdetails.setOrder(order);
             quanity += orderdetails.getQuanity();
             orderdetails.setQuanity(quanity);
             orderdetails.setAmount(quanity*price);

@@ -5,6 +5,7 @@
 <@common.page>
 
     <h2 class="my-3">Каталог товаров</h2>
+    ${message!}
 <#-----------------------SEARCH------------------------------->
     <div class="row">
         <div class="">

@@ -59,10 +59,10 @@ public class OrderDetail {
     }
 
     public OrderDetail(Integer amount,
-                       Integer price,
-                       int quanity,
-                       Order order,
-                       Product product
+                        Integer price,
+                        int quanity,
+                        Order order,
+                        Product product
     ) {
         this.order = order;
         this.product = product;
@@ -97,5 +97,9 @@ public class OrderDetail {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
