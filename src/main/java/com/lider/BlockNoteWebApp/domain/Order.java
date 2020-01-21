@@ -90,6 +90,10 @@ public class Order {
         return amount;
     }
 
+    public String getCustomerEmail() {
+        return customerEmail;
+    }
+
     public void setCustomerEmail(String customerEmail) {
         this.customerEmail = customerEmail;
     }

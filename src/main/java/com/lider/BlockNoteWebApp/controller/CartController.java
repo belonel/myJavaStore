@@ -157,7 +157,7 @@ public class CartController {
             fileNames.add(uploadPath + "/" + filename);
         }
         mailSender.sendWithFiles(
-                user.getEmail(),
+                order.getCustomerEmail(),
                 "Ваш заказ с JavaStore",
                 "Привет!" +
                         "Во вложении твой заказ.\n" +
